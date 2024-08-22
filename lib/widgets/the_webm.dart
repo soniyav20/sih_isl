@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class WebmVideoContainer extends StatefulWidget {
+  const WebmVideoContainer({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _WebmVideoContainerState createState() => _WebmVideoContainerState();
 }
 
@@ -36,7 +39,7 @@ class _WebmVideoContainerState extends State<WebmVideoContainer> {
           height: 180, // Adjust the height as needed
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.0),
-            boxShadow: [
+            boxShadow: const [
 
             ],
           ),
@@ -52,6 +55,6 @@ class _WebmVideoContainerState extends State<WebmVideoContainer> {
             ],
           ),
         )
-            : CircularProgressIndicator());
+            : const CircularProgressIndicator());
   }
 }

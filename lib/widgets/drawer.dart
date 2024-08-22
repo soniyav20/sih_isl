@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sih/learn_pronunciation.dart';
+import 'package:sih/constants.dart';
+import 'package:sih/screens/learn_pronunciation.dart';
 
 class HomeDrawer extends StatelessWidget {
-  const HomeDrawer({Key? key}) : super(key: key);
+  const HomeDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +12,11 @@ class HomeDrawer extends StatelessWidget {
     child: ListView(
     padding: EdgeInsets.zero,
     children: <Widget>[
-    DrawerHeader(
+     DrawerHeader(
     decoration: BoxDecoration(
-    color: Color(0xFFA28F2D),
+    color: primary,
     ),
-    child: Text(
+    child: const Text(
     'Zenith ISL',
     style: TextStyle(
     color: Colors.white,
@@ -24,17 +25,16 @@ class HomeDrawer extends StatelessWidget {
     ),
     ),
     ListTile(
-    leading: Icon(Icons.book),
-    title: Text('Learn Pronunciation'),
+    leading: const Icon(Icons.book),
+    title: const Text('Learn Pronunciation'),
     onTap: () {
-// Navigate to Learn Pronunciation Page
     Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => LearnPronunciationPage()),
+    MaterialPageRoute(builder: (context) => const LearnPronunciationPage()),
     );
     },
     ),
-// Add more options here if needed
+
     ],
     ),
     )

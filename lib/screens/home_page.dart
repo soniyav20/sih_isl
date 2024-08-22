@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:sih/drawer.dart';
+import 'package:sih/constants.dart';
+import 'package:sih/screens/contacts_list_page.dart';
+import 'package:sih/screens/profile_page.dart';
+import 'package:sih/widgets/drawer.dart';
 import 'package:sih/main.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  // List of pages corresponding to each bottom navigation item
   final List<Widget> _pages = [
-    FirstPage(),
-    SecondPage(),
+    const FirstPage(),
+    const SecondPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -28,26 +33,29 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: HomeDrawer(),
+      drawer: const HomeDrawer(),
 
       appBar: AppBar(
         flexibleSpace: Container(
-          decoration: BoxDecoration(
+          decoration:  BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFFFFF7CF), Color(0xFFFFF7CF)], // Using the same color for a subtle effect
+              colors: [secondary, secondary],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
         ),
-        title: Text('Zenith ISL'),
+        title: const Text('Zenith ISL'),
 
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.person, color: Color(0xFFA28F2D)),
+            icon:  Icon(Icons.person, color: primary),
             onPressed: () {
-              // Open additional options (e.g., Settings)
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfilePage()),
+              );
             },
           ),
         ],
@@ -71,36 +79,38 @@ class _HomePageState extends State<HomePage> {
         onPressed: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ContactListPage()),
+            MaterialPageRoute(builder: (context) =>   ContactListPage()),
           );
         },
-        child: Icon(Icons.video_call,color: Colors.white,),
+        child: const Icon(Icons.video_call,color: Colors.white,),
       ),
     );
   }
 }
 
-// First page
 class FirstPage extends StatelessWidget {
+  const FirstPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return  Center(
       child: Text(
         'Home Page Content',
-        style: TextStyle(fontSize: 24, color: Color(0xFFA28F2D)),
+        style: TextStyle(fontSize: 24, color: primary),
       ),
     );
   }
 }
 
-// Second page
 class SecondPage extends StatelessWidget {
+  const SecondPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return  Center(
       child: Text(
         'Settings Page Content',
-        style: TextStyle(fontSize: 24, color: Color(0xFFA28F2D)),
+        style: TextStyle(fontSize: 24, color: primary),
       ),
     );
   }

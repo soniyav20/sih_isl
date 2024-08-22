@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import '../constants.dart';
+
 class VideoCallAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String personName;
 
-  VideoCallAppBar({required this.personName});
+  const VideoCallAppBar({super.key, required this.personName});
 
   @override
+  // ignore: library_private_types_in_public_api
   _VideoCallAppBarState createState() => _VideoCallAppBarState();
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 class _VideoCallAppBarState extends State<VideoCallAppBar> {
@@ -24,7 +27,7 @@ class _VideoCallAppBarState extends State<VideoCallAppBar> {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         _elapsedSeconds += 1;
       });
@@ -46,9 +49,9 @@ class _VideoCallAppBarState extends State<VideoCallAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color(0xFFA28F2D),
+      backgroundColor:  primary,
       leading: IconButton(
-        icon: Icon(Icons.arrow_back, color: Colors.white),
+        icon: const Icon(Icons.arrow_back, color: Colors.white),
         onPressed: () {
           Navigator.of(context).pop();
         },
@@ -58,19 +61,19 @@ class _VideoCallAppBarState extends State<VideoCallAppBar> {
         children: [
           Text(
             widget.personName,
-            style: TextStyle(color: Colors.white, fontSize: 18),
+            style: const TextStyle(color: Colors.white, fontSize: 18),
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
         ],
       ),
       actions: [
         Center(
           child: Text(
             _formatDuration(_elapsedSeconds),
-            style: TextStyle(color: Colors.white, fontSize: 16),
+            style: const TextStyle(color: Colors.white, fontSize: 16),
           ),
         ),
-        SizedBox(width: 16),
+        const SizedBox(width: 16),
       ],
     );
   }
