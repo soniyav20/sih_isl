@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sih/screens/home_page.dart';
-import 'package:sih/screens/video_call_screen.dart';
+import 'package:sih/screens/main_page.dart';
 
 import 'constants.dart';
 
@@ -37,8 +36,21 @@ class MyApp extends StatelessWidget {
         floatingActionButtonTheme:  FloatingActionButtonThemeData(
           backgroundColor: primary,
         ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Colors.white, // Background color of the BottomNavigationBar
+          selectedItemColor: primary, // Color of the selected icon
+          unselectedItemColor: Colors.grey, // Color of the unselected icons
+          selectedLabelStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: primary,
+          ),
+          unselectedLabelStyle: const TextStyle(
+            fontWeight: FontWeight.normal,
+            color: Colors.grey,
+          ),
+        ),
       ),
-      home: const HomePage(),
+      home: const MainPage(),
     );
   }
 }

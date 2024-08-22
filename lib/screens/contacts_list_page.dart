@@ -1,37 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:sih/screens/notifications_page.dart';
 import 'package:sih/screens/video_call_screen.dart';
+import 'package:sih/widgets/drawer.dart';
 
 import '../constants.dart';
 
 class ContactListPage extends StatelessWidget {
-  final List<String> _randomNames = [
-    "Alice",
-    "Bob",
-    "Charlie",
-    "David",
-    "Eve",
-    "Frank",
-    "Grace",
-    "Hannah",
-    "Ivy",
-    "Jack",
-    "Kara",
-    "Leo",
-    "Mona",
-    "Nina",
-    "Oscar",
-    "Paul",
-    "Quincy",
-    "Rita",
-    "Steve",
-    "Tina",
-  ];
 
   ContactListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const HomeDrawer(),
       appBar: AppBar(
         flexibleSpace: Container(
           decoration:  BoxDecoration(
@@ -43,15 +24,14 @@ class ContactListPage extends StatelessWidget {
           ),
         ),
         title: const Text('Zenith ISL Calls'),
+        actions: [IconButton(onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  const NotificationsPage()),
+          );
+        }, icon: const Icon(Icons.notifications))],
 
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon:  Icon(Icons.person, color: primary),
-            onPressed: () {
-            },
-          ),
-        ],
       ),
       body: Column(
         children: [
@@ -73,7 +53,7 @@ class ContactListPage extends StatelessWidget {
           // Contact List
           Expanded(
             child: ListView.builder(
-              itemCount: _randomNames.length,
+              itemCount: names.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -91,7 +71,7 @@ class ContactListPage extends StatelessWidget {
                       ),
                     ),
 
-                    title: Text(_randomNames[index]),
+                    title: Text(names[index]),
                     subtitle: Row(
                       children: [
                         Icon(
@@ -113,7 +93,7 @@ class ContactListPage extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => VideoCallPage(name: _randomNames[index],)),
+                          MaterialPageRoute(builder: (context) => VideoCallPage(name: names[index],)),
                         );                      },
                     ),
                     onTap: () {

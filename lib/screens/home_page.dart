@@ -1,117 +1,185 @@
 import 'package:flutter/material.dart';
 import 'package:sih/constants.dart';
-import 'package:sih/screens/contacts_list_page.dart';
-import 'package:sih/screens/profile_page.dart';
+import 'package:sih/screens/learn_pronunciation.dart';
+import 'package:sih/screens/notifications_page.dart';
+import 'package:sih/screens/video_call_screen.dart';
 import 'package:sih/widgets/drawer.dart';
-import 'package:sih/main.dart';
-
-void main() => runApp(const MyApp());
+import 'package:sih/widgets/recents.dart';
 
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
 
-  @override
-  // ignore: library_private_types_in_public_api
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-
-  final List<Widget> _pages = [
-    const FirstPage(),
-    const SecondPage(),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const HomeDrawer(),
-
+      drawer: HomeDrawer(),
       appBar: AppBar(
-        flexibleSpace: Container(
-          decoration:  BoxDecoration(
-            gradient: LinearGradient(
-              colors: [secondary, secondary],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
-        title: const Text('Zenith ISL'),
-
+        backgroundColor: secondary,
+        title: Text('Zenith D&D'),
         centerTitle: true,
         actions: [
           IconButton(
-            icon:  Icon(Icons.person, color: primary),
+            icon: Icon(Icons.notifications),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProfilePage()),
+                MaterialPageRoute(builder: (context) => NotificationsPage()),
               );
             },
           ),
         ],
       ),
-      body: _pages[_selectedIndex], // Display the selected page
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>   ContactListPage()),
-          );
-        },
-        child: const Icon(Icons.video_call,color: Colors.white,),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Welcome Message
+            Text(
+              'Welcome Back, User!',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: primary,
+              ),
+            ),
+            SizedBox(height: 20),
+
+            // Key Features or Quick Access
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _FeatureCard(
+                  icon: Icons.videocam,
+                  label: 'Start Video Call',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => VideoCallPage(name: 'Alice',)),
+                    );
+                  },
+                ),
+                _FeatureCard(
+                  icon: Icons.book,
+                  label: 'Learn Lip Reading',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LearnPronunciationPage()),
+                    );
+                  },
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+
+            // Recent Activities or Updates
+            Text(
+              'Recent Activities',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: primary,
+              ),
+            ),
+            SizedBox(height: 10),
+            RecentActivities(),
+            SizedBox(height: 20),
+
+            // Popular Contacts or Favorites
+            Text(
+              'Your Favorites',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: primary,
+              ),
+            ),
+            SizedBox(height: 10),
+            _FavoriteContacts(),
+          ],
+        ),
       ),
     );
   }
 }
 
-class FirstPage extends StatelessWidget {
-  const FirstPage({super.key});
+class _FeatureCard extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+
+  const _FeatureCard({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return  Center(
-      child: Text(
-        'Home Page Content',
-        style: TextStyle(fontSize: 24, color: primary),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+          color: secondary,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              blurRadius: 4,
+              offset: Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: 40,
+              color: primary,
+            ),
+            SizedBox(height: 8),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: primary,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class SecondPage extends StatelessWidget {
-  const SecondPage({super.key});
-
+class _FavoriteContacts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  Center(
-      child: Text(
-        'Settings Page Content',
-        style: TextStyle(fontSize: 24, color: primary),
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: List.generate(4, (index) {
+        return Column(
+          children: [
+            CircleAvatar(
+              backgroundColor: secondary,
+              child: Icon(Icons.person, color: primary),
+            ),
+            SizedBox(height: 8),
+            Text(
+              names[index],
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: primary,
+              ),
+            ),
+          ],
+        );
+      }),
     );
   }
 }

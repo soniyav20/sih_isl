@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sih/screens/notifications_page.dart';
 
 import '../constants.dart';
 
@@ -10,10 +11,13 @@ class LearnPronunciationPage extends StatelessWidget {
     return Scaffold(
       backgroundColor:  secondary,
       appBar: AppBar(
-        title: const Text('Lip Recognition',style: TextStyle(color: Colors.white),),
+        title: const Text('Lip Reading',style: TextStyle(color: Colors.white),),
         centerTitle: true,
         backgroundColor:  primary,
-        leading: IconButton(icon: const Icon(Icons.arrow_back,color: Colors.white,), onPressed: () { Navigator.pop(context); },),
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: Icon(Icons.arrow_back,color: Colors.white,)),
+
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

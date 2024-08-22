@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -14,14 +16,14 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile Settings'),
+        title: const Text('Profile Settings'),
         centerTitle: true,
       ),
       body: ListView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         children: [
           Container(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
               color: secondary,
               borderRadius: BorderRadius.circular(10),
@@ -31,10 +33,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 CircleAvatar(
                   radius: 30,
                   backgroundColor: primary,
-                  child: Icon(Icons.person, size: 40, color: Colors.white),
+                  child: const Icon(Icons.person, size: 40, color: Colors.white),
                 ),
-                SizedBox(width: 16.0),
-                Column(
+                const SizedBox(width: 16.0),
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -51,18 +53,18 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
           ),
-          Divider(),
+          const Divider(),
           ListTile(
             leading: Icon(Icons.lock, color: primary),
-            title: Text('Change Password'),
-            trailing: Icon(Icons.arrow_forward_ios, color: Colors.grey),
+            title: const Text('Change Password'),
+            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
             onTap: () {
               // Navigate to change password page
             },
           ),
           ListTile(
             leading: Icon(Icons.notifications, color: primary),
-            title: Text('Notifications'),
+            title: const Text('Notifications'),
             trailing: Switch(
               value: _isNotificationsEnabled,
               onChanged: (bool value) {
@@ -74,7 +76,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           ListTile(
             leading: Icon(Icons.volume_up, color: primary),
-            title: Text('Sounds & Vibration'),
+            title: const Text('Sounds & Vibration'),
             trailing: Switch(
               value: true,
               onChanged: (bool value) {},
@@ -82,7 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           ListTile(
             leading: Icon(Icons.location_on, color: primary),
-            title: Text('Location Access'),
+            title: const Text('Location Access'),
             trailing: Switch(
               value: _isLocationEnabled,
               onChanged: (bool value) {
@@ -94,15 +96,15 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           ListTile(
             leading: Icon(Icons.video_call, color: primary),
-            title: Text('Video Quality'),
-            trailing: Text('High', style: TextStyle(color: Colors.grey)),
+            title: const Text('Video Quality'),
+            trailing: const Text('High', style: TextStyle(color: Colors.grey)),
             onTap: () {
               // Open video quality settings
             },
           ),
           ListTile(
             leading: Icon(Icons.privacy_tip, color: primary),
-            title: Text('Privacy'),
+            title: const Text('Privacy'),
             trailing: Switch(
               value: _isPrivacyEnabled,
               onChanged: (bool value) {
@@ -114,37 +116,37 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           ListTile(
             leading: Icon(Icons.language, color: primary),
-            title: Text('Language'),
-            trailing: Icon(Icons.arrow_forward_ios, color: Colors.grey),
+            title: const Text('Language'),
+            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
             onTap: () {
               // Navigate to language settings
             },
           ),
           ListTile(
             leading: Icon(Icons.help, color: primary),
-            title: Text('Help & Support'),
-            trailing: Icon(Icons.arrow_forward_ios, color: Colors.grey),
+            title: const Text('Help & Support'),
+            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
             onTap: () {
               // Navigate to help and support
             },
           ),
           ListTile(
             leading: Icon(Icons.info, color: primary),
-            title: Text('About'),
-            trailing: Icon(Icons.arrow_forward_ios, color: Colors.grey),
+            title: const Text('About'),
+            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
             onTap: () {
               // Navigate to about page
             },
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
             },
-            child: Text('Log Out', style: TextStyle(color: Colors.white)),
             style: ElevatedButton.styleFrom(
               backgroundColor: primary,
-              padding: EdgeInsets.symmetric(vertical: 12),
+              padding: const EdgeInsets.symmetric(vertical: 12),
             ),
+            child: const Text('Log Out', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
