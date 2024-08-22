@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sih/drawer.dart';
+import 'package:sih/home_page.dart';
 import 'package:sih/the_webm.dart';
 import 'package:sih/video_call_screen.dart';
 
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Color(0xFFA28F2D),
         ),
       ),
-      home: ContactListPage(),
+      home: HomePage(),
     );
   }
 }
@@ -58,7 +59,6 @@ class ContactListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: HomeDrawer(),
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: BoxDecoration(
@@ -69,7 +69,7 @@ class ContactListPage extends StatelessWidget {
             ),
           ),
         ),
-        title: Text('Zenith ISL'),
+        title: Text('Zenith ISL Calls'),
 
         centerTitle: true,
         actions: [

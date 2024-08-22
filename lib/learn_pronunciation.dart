@@ -4,6 +4,7 @@ class LearnPronunciationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffFFF7CF),
       appBar: AppBar(
         title: Text('Lip Recognition',style: TextStyle(color: Colors.white),),
         centerTitle: true,
@@ -42,8 +43,11 @@ class LearnPronunciationPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30), // Space between images and text
-
-            // Pronunciation text
+Padding(
+  padding: const EdgeInsets.symmetric(vertical: 0.0,horizontal: 24),
+  child: Divider(color:Color(0xFFA28F2D) ,),
+),
+            SizedBox(height: 30), // Space between images and text
             Center(
               child: RichText(
                 text: TextSpan(

@@ -12,7 +12,7 @@ class _WebmVideoContainerState extends State<WebmVideoContainer> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/sample.webm')
+    _controller = VideoPlayerController.asset('assets/hruisl.webm')
       ..initialize().then((_) {
         setState(() {
           _controller.setLooping(true);
