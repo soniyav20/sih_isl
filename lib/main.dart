@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sih/drawer.dart';
+import 'package:sih/the_webm.dart';
+import 'package:sih/video_call_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,9 +33,32 @@ class MyApp extends StatelessWidget {
 }
 
 class ContactListPage extends StatelessWidget {
+  final List<String> _randomNames = [
+    "Alice",
+    "Bob",
+    "Charlie",
+    "David",
+    "Eve",
+    "Frank",
+    "Grace",
+    "Hannah",
+    "Ivy",
+    "Jack",
+    "Kara",
+    "Leo",
+    "Mona",
+    "Nina",
+    "Oscar",
+    "Paul",
+    "Quincy",
+    "Rita",
+    "Steve",
+    "Tina",
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: HomeDrawer(),
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: BoxDecoration(
@@ -43,14 +69,15 @@ class ContactListPage extends StatelessWidget {
             ),
           ),
         ),
-        title: Text('Video Call'),
+        title: Text('Zenith ISL'),
+
         centerTitle: true,
         actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(
-              backgroundImage: AssetImage('assets/profile.jpg'), // Dummy profile image
-            ),
+          IconButton(
+            icon: Icon(Icons.person, color: Color(0xFFA28F2D)),
+            onPressed: () {
+              // Open additional options (e.g., Settings)
+            },
           ),
         ],
       ),
@@ -80,10 +107,21 @@ class ContactListPage extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                   child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: AssetImage('assets/contact.jpg'), // Dummy contact image
+                    leading: Container(
+                      width: 50.0,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFFF7CF),
+
+                        borderRadius: BorderRadius.all( Radius.circular(50.0)),
+                        border: Border.all(
+                          color: Color(0xFFA28F2D),
+                          width: 1.0,
+                        ),
+                      ),
                     ),
-                    title: Text('Contact Name $index'), // Replace with contact's name
+
+                      title: Text(_randomNames[index]), // Replace with contact's name
                     subtitle: Row(
                       children: [
                         Icon(
@@ -103,8 +141,10 @@ class ContactListPage extends StatelessWidget {
                     trailing: IconButton(
                       icon: Icon(Icons.videocam, color: Color(0xFFA28F2D)),
                       onPressed: () {
-                        // Initiate video call
-                      },
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => VideoCallPage(name: _randomNames[index],)),
+                        );                      },
                     ),
                     onTap: () {
                       // Navigate to contact details or call screen
@@ -116,28 +156,7 @@ class ContactListPage extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            heroTag: 'call',
-            backgroundColor: Color(0xFFA28F2D),
-            child: Icon(Icons.video_call, color: Colors.white),
-            onPressed: () {
-              // Initiate a new video call
-            },
-          ),
-          SizedBox(height: 16),
-          FloatingActionButton(
-            heroTag: 'options',
-            backgroundColor: Color(0xFFA28F2D),
-            child: Icon(Icons.more_horiz, color: Colors.white),
-            onPressed: () {
-              // Open additional options (e.g., Settings)
-            },
-          ),
-        ],
-      ),
+
     );
   }
 }
