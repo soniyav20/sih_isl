@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:sih/widgets/app_bar.dart';
 import 'package:sih/widgets/the_webm.dart';
+import 'package:video_player/video_player.dart';
 import '../constants.dart';
 
 class VideoCallPage extends StatefulWidget {
@@ -17,6 +18,8 @@ class VideoCallPage extends StatefulWidget {
 class _VideoCallPageState extends State<VideoCallPage> {
   CameraController? _controller;
   Future<void>? _initializeControllerFuture;
+  late VideoPlayerController _vcontroller;
+  late Future<void> _initializeVideoPlayerFuture;
 bool isavatar= false;
   bool isMuted = false;
   bool isCameraOn = true;
@@ -27,6 +30,10 @@ bool isavatar= false;
   void initState() {
     super.initState();
     _initializeCamera();
+    _vcontroller = VideoPlayerController.asset('assets/rendered_video.mp4');
+    _initializeVideoPlayerFuture = _vcontroller.initialize();
+    _vcontroller.play();
+    _vcontroller.setLooping(true);
   }
 
   Future<void> _initializeCamera() async {
@@ -104,6 +111,7 @@ bool isavatar= false;
   @override
   void dispose() {
     _controller?.dispose();
+    _vcontroller.dispose();
     super.dispose();
   }
   bool _isExpanded = false;
@@ -115,13 +123,23 @@ bool isavatar= false;
       appBar: VideoCallAppBar(personName: widget.name),
       body: Stack(
         children: [
-           const Positioned.fill(
-            child: Image(
-              image: NetworkImage('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExaXk1NnR5bmMyb2J3MzI3YnowaTBsa3k0Y2h1cThqNTlidHBxb2U2ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ggWtgU26iMuTOhsZIy/giphy-downsized-large.gif'),
-              fit: BoxFit.fitHeight,
-            ),
-          ),
-
+            Positioned.fill(
+            child: FutureBuilder(
+    future: _initializeVideoPlayerFuture,
+    builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.done) {
+    return FittedBox(
+    fit: BoxFit.fitHeight,
+    child: SizedBox(
+    width: _vcontroller.value.size.width,
+    height: _vcontroller.value.size.height,
+    child: VideoPlayer(_vcontroller),
+    ),
+    );
+    } else {
+    return const Center(
+    child: CircularProgressIndicator(),
+    );}})),
           Positioned(
             bottom: 0,
             left: 0,
@@ -155,28 +173,28 @@ bool isavatar= false;
                             children: [Opacity(
                             opacity: 0.5, // Less opacity for the first line
                             child: Text(
-                              'Hi',
+                              'Good Morning',
                               style: TextStyle(
                                 color: primary,
-                                fontSize: 30.0,
+                                fontSize: 22.0,
                               ),
                             ),
                           ),
                             Text(
-                              'How are you?',
+                              'How was your day?',
                               style: TextStyle(
                                 color: primary,
-                                fontSize: 30.0,
+                                fontSize: 22.0,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Opacity(
                               opacity: 0.5, // Less opacity for the third line
                               child: Text(
-                                'Where ....',
+                                'Did you go to wo....',
                                 style: TextStyle(
                                   color:primary,
-                                  fontSize: 30.0,
+                                  fontSize: 22.0,
                                 ),
                               ),
                             ),
