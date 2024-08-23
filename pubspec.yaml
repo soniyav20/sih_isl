@@ -39,6 +39,7 @@ dependencies:
   gif: ^2.3.0
   video_player: ^2.9.1
   webview_flutter: ^4.8.0
+  youtube_player_flutter: ^9.0.3
 
 dev_dependencies:
   flutter_test:
