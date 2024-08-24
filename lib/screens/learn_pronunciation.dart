@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:video_player/video_player.dart';
 
 import '../constants.dart';
 
@@ -9,26 +9,21 @@ class LearnPronunciationPage extends StatefulWidget {
   @override
   _LearnPronunciationPageState createState() => _LearnPronunciationPageState();
 }
-
 class _LearnPronunciationPageState extends State<LearnPronunciationPage> {
-  late YoutubePlayerController _controller;
-
+  late VideoPlayerController _vcontroller;
+  late Future<void> _initializeVideoPlayerFuture;
   @override
   void initState() {
     super.initState();
-    const videoUrl = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-    _controller = YoutubePlayerController(
-      initialVideoId: YoutubePlayer.convertUrlToId(videoUrl)!,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-      ),
-    );
+    _vcontroller = VideoPlayerController.asset('assets/videoplayback.mp4');
+    _initializeVideoPlayerFuture = _vcontroller.initialize();
+    _vcontroller.play();
+    _vcontroller.setLooping(true);
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _vcontroller.dispose();
     super.dispose();
   }
 
@@ -55,12 +50,23 @@ class _LearnPronunciationPageState extends State<LearnPronunciationPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            YoutubePlayer(
-              controller: _controller,
-              showVideoProgressIndicator: true,
-              progressIndicatorColor: primary,
-            ),
-            const SizedBox(height: 10),
+            FutureBuilder(
+                future: _initializeVideoPlayerFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: SizedBox(
+                        width: _vcontroller.value.size.width,
+                        height: _vcontroller.value.size.height,
+                        child: VideoPlayer(_vcontroller),
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );}}),
+            SizedBox(height: 10),
             const SizedBox(height: 30),
             Center(
               child: RichText(
@@ -71,9 +77,9 @@ class _LearnPronunciationPageState extends State<LearnPronunciationPage> {
                     color: primary,
                   ),
                   children: const [
-                    TextSpan(text: 'What   is   your  \n'),
+                    TextSpan(text: 'Don\'t freeze the cheese \n'),
                     TextSpan(
-                      text: ' name? ',
+                      text: ' please ',
                       style: TextStyle(
                         color: Colors.white,
                         backgroundColor: Color(0xffEAD87C),
@@ -98,9 +104,10 @@ class _LearnPronunciationPageState extends State<LearnPronunciationPage> {
                     color: primary,
                   ),
                   children: const [
-                    TextSpan(text: 'wɒt   ɪz   jɔːr   '),
+                    TextSpan(text: "doʊnt friːz ðə tʃiːz  "
+                    ),
                     TextSpan(
-                      text: ' neɪm?',
+                      text: ' pliːz',
                       style: TextStyle(
                         color: Colors.white,
                         backgroundColor: Color(0xffEAD87C),
